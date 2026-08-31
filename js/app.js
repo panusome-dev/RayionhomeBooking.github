@@ -203,7 +203,7 @@ function showToast(message, type = "info"){
 //------------------------------------------
 
 const TIME_SLOTS = [
-    "13:00","15:00","18:00","21:00"
+    "13:00","15:00","19:00","21:00"
 ];
 
 function getTimeOptionsHTML(){
