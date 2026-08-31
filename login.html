@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>เข้าสู่ระบบ - RAYIONHOME BOOKING SYSTEM</title>
+
+    <!-- ไอคอนเว็บ/แท็บเบราว์เซอร์ + ไอคอนตอนติดตั้งเป็นแอป/ปักหมุดหน้าจอ -->
+
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#F4D242">
+
+    <!-- Google Font -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <!-- CSS หลักของระบบ (ใช้ตัวแปรสี/ฟอนต์ร่วมกัน) -->
+
+    <link rel="stylesheet"
+          href="css/style.css">
+
+    <style>
+
+        body{
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            min-height:100vh;
+            background:var(--bg);
+            font-family:'Kanit', sans-serif;
+
+        }
+
+        .login-wrap{
+
+            width:100%;
+            max-width:380px;
+            padding:20px;
+
+        }
+
+        .login-card{
+
+            background:#ffffff;
+            border:3px solid #000000;
+            border-radius:20px;
+            box-shadow:5px 5px 0 #000000;
+            padding:32px 28px;
+            text-align:center;
+
+        }
+
+        .login-logo{
+
+            width:90px;
+            height:90px;
+            object-fit:contain;
+            margin:0 auto 12px;
+            display:block;
+
+        }
+
+        .login-card h1{
+
+            font-size:20px;
+            font-weight:700;
+            color:var(--text);
+            margin-bottom:4px;
+
+        }
+
+        .login-card p{
+
+            font-size:13px;
+            color:var(--sub);
+            margin-bottom:24px;
+
+        }
+
+        .login-field{
+
+            text-align:left;
+            margin-bottom:16px;
+
+        }
+
+        .login-field label{
+
+            display:block;
+            font-size:13px;
+            font-weight:600;
+            color:var(--text);
+            margin-bottom:6px;
+
+        }
+
+        .login-field input{
+
+            width:100%;
+            padding:12px 14px;
+            border:2px solid #000000;
+            border-radius:10px;
+            font-size:15px;
+            font-family:'Kanit', sans-serif;
+            background:var(--bg);
+            box-sizing:border-box;
+
+        }
+
+        .login-field input:focus{
+
+            outline:none;
+            border-color:var(--primary);
+
+        }
+
+        .login-error{
+
+            display:none;
+            background:var(--salmon, #FFC0C0);
+            border:2px solid #000000;
+            border-radius:10px;
+            padding:10px 12px;
+            font-size:13px;
+            color:#000000;
+            margin-bottom:16px;
+            text-align:left;
+
+        }
+
+        .login-btn{
+
+            width:100%;
+            padding:13px;
+            border:2px solid #000000;
+            border-radius:12px;
+            background:var(--primary);
+            color:#ffffff;
+            font-size:16px;
+            font-weight:700;
+            font-family:'Kanit', sans-serif;
+            cursor:pointer;
+            box-shadow:3px 3px 0 #000000;
+            transition:.15s;
+
+        }
+
+        .login-btn:hover{
+
+            transform:translate(1px,1px);
+            box-shadow:2px 2px 0 #000000;
+
+        }
+
+        .login-btn:disabled{
+
+            opacity:.6;
+            cursor:not-allowed;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="login-wrap">
+
+        <div class="login-card">
+
+            <img src="images/logo.png" alt="RAYIONHOME" class="login-logo">
+
+            <h1>เข้าสู่ระบบ</h1>
+            <p>RAYIONHOME BOOKING SYSTEM</p>
+
+            <div class="login-error" id="loginError"></div>
+
+            <form id="loginForm">
+
+                <div class="login-field">
+                    <label for="loginUsername">Username</label>
+                    <input type="text" id="loginUsername" autocomplete="username" autocapitalize="off" autocorrect="off" spellcheck="false" required>
+                </div>
+
+                <div class="login-field">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" autocomplete="current-password" required>
+                </div>
+
+                <button type="submit" class="login-btn" id="loginSubmitBtn">
+                    <i class="fa-solid fa-right-to-bracket"></i> เข้าสู่ระบบ
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+
+        //------------------------------------------
+        // Supabase (ใช้ anon key เดียวกับที่ระบบหลักใช้)
+        //------------------------------------------
+
+        const SUPABASE_URL = "https://aykanrfeacypeblkivsm.supabase.co";
+        const SUPABASE_KEY = "sb_publishable_XVWpfawH790WULQTQwVUvw_IDrU8Emw";
+
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        // โดเมนปลอมที่ผูกไว้กับทุก username เพื่อให้ Supabase Auth (ซึ่งรองรับแค่รูปแบบอีเมล)
+        // ทำงานเป็นระบบ username/password ธรรมดาได้ โดยที่ผู้ใช้ไม่ต้องรู้เรื่องอีเมลนี้เลย
+        const USERNAME_DOMAIN = "@rayionhome.internal";
+
+        function usernameToEmail(username){
+
+            return String(username).trim().toLowerCase() + USERNAME_DOMAIN;
+
+        }
+
+        //------------------------------------------
+        // ถ้าล็อคอินอยู่แล้ว ข้ามหน้านี้ไปหน้าหลักเลย
+        //------------------------------------------
+
+        (async function checkExistingSession(){
+
+            const { data: { session } } = await supabaseClient.auth.getSession();
+
+            if(session){
+
+                window.location.href = "index.html";
+
+            }
+
+        })();
+
+        //------------------------------------------
+        // ฟอร์มล็อคอิน
+        //------------------------------------------
+
+        const loginForm = document.getElementById("loginForm");
+        const loginError = document.getElementById("loginError");
+        const loginSubmitBtn = document.getElementById("loginSubmitBtn");
+
+        function showLoginError(message){
+
+            loginError.textContent = message;
+            loginError.style.display = "block";
+
+        }
+
+        loginForm.addEventListener("submit", async function(e){
+
+            e.preventDefault();
+
+            loginError.style.display = "none";
+
+            const username = document.getElementById("loginUsername").value.trim();
+            const password = document.getElementById("loginPassword").value;
+
+            if(!username || !password){
+
+                showLoginError("กรุณากรอก Username และ Password");
+                return;
+
+            }
+
+            loginSubmitBtn.disabled = true;
+            loginSubmitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> กำลังเข้าสู่ระบบ...`;
+
+            try{
+
+                const { data, error } = await supabaseClient.auth.signInWithPassword({
+
+                    email: usernameToEmail(username),
+                    password: password
+
+                });
+
+                if(error) throw error;
+
+                window.location.href = "index.html";
+
+            }catch(error){
+
+                console.error(error);
+
+                showLoginError("Username หรือ Password ไม่ถูกต้อง");
+
+                loginSubmitBtn.disabled = false;
+                loginSubmitBtn.innerHTML = `<i class="fa-solid fa-right-to-bracket"></i> เข้าสู่ระบบ`;
+
+            }
+
+        });
+
+    </script>
+
+</body>
+
+</html>
