@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>RAYIONHOME BOOKING SYSTEM</title>
+
+    <!-- ไอคอนเว็บ/แท็บเบราว์เซอร์ + ไอคอนตอนติดตั้งเป็นแอป/ปักหมุดหน้าจอ -->
+
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#F4D242">
+
+    <!-- Google Font -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <!-- CSS -->
+
+    <link rel="stylesheet"
+          href="css/style.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- ===========================
+            SIDEBAR
+    ============================ -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <img src="images/logo.png"
+                 class="logo-img"
+                 alt="Logo">
+
+        </div>
+
+        <nav class="menu-list">
+
+            <a href="#"
+               class="menu active"
+               data-page="dashboard">
+
+                <i class="fa-solid fa-house"></i>
+
+                <span>
+
+                    หน้าหลัก
+
+                </span>
+
+            </a>
+
+            <a href="#"
+               class="menu"
+               data-page="booking">
+
+                <i class="fa-solid fa-calendar-plus"></i>
+
+                <span>
+
+                    เพิ่มคิว
+
+                </span>
+
+            </a>
+
+            <a href="#"
+               class="menu"
+               data-page="customer">
+
+                <i class="fa-solid fa-users"></i>
+
+                <span>
+
+                    ลูกค้า
+
+                </span>
+
+            </a>
+
+            <a href="#"
+               class="menu"
+               data-page="calendar">
+
+                <i class="fa-solid fa-calendar-days"></i>
+
+                <span>
+
+                    ตารางคิว
+
+                </span>
+
+            </a>
+
+            <a href="#"
+               class="menu"
+               data-page="paymentTracker">
+
+                <i class="fa-solid fa-hand-holding-dollar"></i>
+
+                <span>
+
+                    ติดตามหนี้
+
+                </span>
+
+            </a>
+
+            <a href="#"
+               class="menu"
+               data-page="reports">
+
+                <i class="fa-solid fa-chart-column"></i>
+
+                <span>
+
+                    รายงาน
+
+                </span>
+
+            </a>
+
+            <a href="#"
+               class="menu"
+               id="settingsMenuItem"
+               data-page="settings">
+
+                <i class="fa-solid fa-gear"></i>
+
+                <span>
+
+                    ตั้งค่า
+
+                </span>
+
+            </a>
+
+            <a href="#"
+               class="menu"
+               id="logoutMenuBtn">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                <span>
+
+                    ออกจากระบบ
+
+                </span>
+
+            </a>
+
+        </nav>
+
+        <div class="sidebar-mascot">
+
+            <img src="images/Tiger1.png" alt="RAYIONHOME mascot">
+
+        </div>
+
+    </aside>
+
+    <!-- ===========================
+            MAIN
+    ============================ -->
+
+    <main class="main">
+        <!-- ===========================
+                HEADER
+        ============================ -->
+
+        <header class="header">
+
+            <div class="header-left">
+
+                <h1 id="pageTitle">
+
+                    Dashboard
+
+                </h1>
+
+                <p id="pageSubtitle">
+
+                    ระบบจัดการคิวลูกค้า
+
+                </p>
+
+            </div>
+
+            <div class="datetime-card">
+
+                <div class="datetime-row" id="currentUserRow" style="display:none;">
+
+                    <i class="fa-solid fa-circle-user"></i>
+
+                    <span id="currentUserLabel">--</span>
+
+                    <span id="currentUserRoleBadge" class="role-badge" style="margin-left:6px;font-size:11px;padding:2px 8px;">--</span>
+
+                </div>
+
+                <div class="datetime-row">
+
+                    <i class="fa-solid fa-calendar-days"></i>
+
+                    <span id="currentDate">
+
+                        --
+
+                    </span>
+
+                </div>
+
+                <div class="datetime-row">
+
+                    <i class="fa-regular fa-clock"></i>
+
+                    <span id="currentTime">
+
+                        --
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+        <!-- ===========================
+                PAGE CONTENT
+        ============================ -->
+
+        <section
+            class="content"
+            id="pageContent">
+            <div id="dashboardContainer"></div>
+            <!-- ===========================
+                    TODAY
+            ============================ -->
+
+        </section>
+
+    </main>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/app.js"></script>
+
+</body>
+
+</html>
